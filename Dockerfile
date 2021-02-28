@@ -37,8 +37,7 @@ EXPOSE 2398
 EXPOSE ${PORT}
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD [ \
-  
+CMD [ \  
   "--port", "2398", \
   "--http-ports", $PORT, \
   "--slaves", "2", \
