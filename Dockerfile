@@ -21,6 +21,8 @@ FROM alpine:3.6
 LABEL maintainer="Alex Doe <alex@doe.sh>" \
       description="Telegram Messenger MTProto zero-configuration proxy server."
 
+ENV PORT=443
+
 RUN apk add --no-cache curl \
   && ln -s /usr/lib/libcrypto.so.41 /usr/lib/libcrypto.so.1.0.0
   # alpine:3.7 will need symlink to libcrypto.so.42
@@ -31,13 +33,14 @@ COPY --from=0 /mtproxy/sources/objs/bin/mtproto-proxy .
 COPY docker-entrypoint.sh /
 
 VOLUME /data
-EXPOSE 2398 4343
+EXPOSE 2398
+EXPOSE ${PORT}
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD [ \
   
   "--port", "2398", \
-  "--http-ports", "4343", \
+  "--http-ports", "${PORT}", \
   "--slaves", "2", \
   "--max-special-connections", "60000", \
   "--allow-skip-dh" \
