@@ -39,7 +39,6 @@ EXPOSE ${PORT}
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD [ \  
   "--port", "2398", \
-  "--http-ports", "`echo ${PORT}`", \
   "--slaves", "2", \
   "--max-special-connections", "60000", \
   "--allow-skip-dh" \
